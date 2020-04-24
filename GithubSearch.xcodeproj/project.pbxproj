@@ -9,21 +9,23 @@
 /* Begin PBXBuildFile section */
 		13BF2AF024532E2F00F65017 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BF2AEF24532E2F00F65017 /* AppDelegate.swift */; };
 		13BF2AF224532E2F00F65017 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BF2AF124532E2F00F65017 /* SceneDelegate.swift */; };
-		13BF2AF424532E2F00F65017 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BF2AF324532E2F00F65017 /* ViewController.swift */; };
+		13BF2AF424532E2F00F65017 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BF2AF324532E2F00F65017 /* DetailViewController.swift */; };
 		13BF2AF724532E3000F65017 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13BF2AF524532E3000F65017 /* Main.storyboard */; };
 		13BF2AF924532E3300F65017 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13BF2AF824532E3300F65017 /* Assets.xcassets */; };
 		13BF2AFC24532E3300F65017 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13BF2AFA24532E3300F65017 /* LaunchScreen.storyboard */; };
+		13BF2B042453303800F65017 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BF2B032453303800F65017 /* SearchTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		13BF2AEC24532E2F00F65017 /* GithubSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GithubSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13BF2AEF24532E2F00F65017 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		13BF2AF124532E2F00F65017 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		13BF2AF324532E2F00F65017 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		13BF2AF324532E2F00F65017 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		13BF2AF624532E3000F65017 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		13BF2AF824532E3300F65017 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		13BF2AFB24532E3300F65017 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		13BF2AFD24532E3300F65017 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		13BF2B032453303800F65017 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,8 +60,9 @@
 			children = (
 				13BF2AEF24532E2F00F65017 /* AppDelegate.swift */,
 				13BF2AF124532E2F00F65017 /* SceneDelegate.swift */,
-				13BF2AF324532E2F00F65017 /* ViewController.swift */,
+				13BF2AF324532E2F00F65017 /* DetailViewController.swift */,
 				13BF2AF524532E3000F65017 /* Main.storyboard */,
+				13BF2B032453303800F65017 /* SearchTableViewController.swift */,
 				13BF2AF824532E3300F65017 /* Assets.xcassets */,
 				13BF2AFA24532E3300F65017 /* LaunchScreen.storyboard */,
 				13BF2AFD24532E3300F65017 /* Info.plist */,
@@ -138,9 +141,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13BF2AF424532E2F00F65017 /* ViewController.swift in Sources */,
+				13BF2AF424532E2F00F65017 /* DetailViewController.swift in Sources */,
 				13BF2AF024532E2F00F65017 /* AppDelegate.swift in Sources */,
 				13BF2AF224532E2F00F65017 /* SceneDelegate.swift in Sources */,
+				13BF2B042453303800F65017 /* SearchTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
