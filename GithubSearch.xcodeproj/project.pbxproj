@@ -16,6 +16,9 @@
 		13BF2B06245341A000F65017 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BF2B05245341A000F65017 /* DetailTableViewController.swift */; };
 		13BF2B082453433B00F65017 /* RepoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BF2B072453433B00F65017 /* RepoTableViewCell.swift */; };
 		13BF2B0A2453438A00F65017 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BF2B092453438A00F65017 /* UserTableViewCell.swift */; };
+		13BF2B0C2453451700F65017 /* UsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BF2B0B2453451700F65017 /* UsersManager.swift */; };
+		13BF2B0E2453454400F65017 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BF2B0D2453454300F65017 /* User.swift */; };
+		13BF2B10245348A800F65017 /* Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BF2B0F245348A800F65017 /* Repo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		13BF2B05245341A000F65017 /* DetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
 		13BF2B072453433B00F65017 /* RepoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoTableViewCell.swift; sourceTree = "<group>"; };
 		13BF2B092453438A00F65017 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
+		13BF2B0B2453451700F65017 /* UsersManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersManager.swift; sourceTree = "<group>"; };
+		13BF2B0D2453454300F65017 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		13BF2B0F245348A800F65017 /* Repo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,13 +68,16 @@
 		13BF2AEE24532E2F00F65017 /* GithubSearch */ = {
 			isa = PBXGroup;
 			children = (
+				13BF2B0B2453451700F65017 /* UsersManager.swift */,
+				13BF2B0D2453454300F65017 /* User.swift */,
+				13BF2B0F245348A800F65017 /* Repo.swift */,
 				13BF2AEF24532E2F00F65017 /* AppDelegate.swift */,
 				13BF2AF124532E2F00F65017 /* SceneDelegate.swift */,
 				13BF2AF524532E3000F65017 /* Main.storyboard */,
+				13BF2B032453303800F65017 /* SearchTableViewController.swift */,
+				13BF2B092453438A00F65017 /* UserTableViewCell.swift */,
 				13BF2B05245341A000F65017 /* DetailTableViewController.swift */,
 				13BF2B072453433B00F65017 /* RepoTableViewCell.swift */,
-				13BF2B092453438A00F65017 /* UserTableViewCell.swift */,
-				13BF2B032453303800F65017 /* SearchTableViewController.swift */,
 				13BF2AF824532E3300F65017 /* Assets.xcassets */,
 				13BF2AFA24532E3300F65017 /* LaunchScreen.storyboard */,
 				13BF2AFD24532E3300F65017 /* Info.plist */,
@@ -150,9 +159,12 @@
 				13BF2B06245341A000F65017 /* DetailTableViewController.swift in Sources */,
 				13BF2AF024532E2F00F65017 /* AppDelegate.swift in Sources */,
 				13BF2AF224532E2F00F65017 /* SceneDelegate.swift in Sources */,
+				13BF2B10245348A800F65017 /* Repo.swift in Sources */,
 				13BF2B082453433B00F65017 /* RepoTableViewCell.swift in Sources */,
+				13BF2B0C2453451700F65017 /* UsersManager.swift in Sources */,
 				13BF2B0A2453438A00F65017 /* UserTableViewCell.swift in Sources */,
 				13BF2B042453303800F65017 /* SearchTableViewController.swift in Sources */,
+				13BF2B0E2453454400F65017 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

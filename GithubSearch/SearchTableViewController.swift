@@ -10,6 +10,8 @@ import UIKit
 
 class SearchTableViewController: UITableViewController {
 
+    @IBOutlet var searchBar: UITableView!
+     
     override func viewDidLoad() {
         super.viewDidLoad()
 
