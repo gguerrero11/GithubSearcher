@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13015C0D2453A18F002C78C1 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13015C0C2453A18F002C78C1 /* MockData.swift */; };
 		13BF2AF024532E2F00F65017 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BF2AEF24532E2F00F65017 /* AppDelegate.swift */; };
 		13BF2AF224532E2F00F65017 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BF2AF124532E2F00F65017 /* SceneDelegate.swift */; };
 		13BF2AF724532E3000F65017 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13BF2AF524532E3000F65017 /* Main.storyboard */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		13015C0C2453A18F002C78C1 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		13BF2AEC24532E2F00F65017 /* GithubSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GithubSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13BF2AEF24532E2F00F65017 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		13BF2AF124532E2F00F65017 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				13BF2AEF24532E2F00F65017 /* AppDelegate.swift */,
 				13BF2AF124532E2F00F65017 /* SceneDelegate.swift */,
 				13BF2B0B2453451700F65017 /* UsersManager.swift */,
+				13015C0C2453A18F002C78C1 /* MockData.swift */,
 				13BF2B0D2453454300F65017 /* User.swift */,
 				13BF2B0F245348A800F65017 /* Repo.swift */,
 				13BF2B032453303800F65017 /* SearchTableViewController.swift */,
@@ -168,6 +171,7 @@
 				13BF2B0C2453451700F65017 /* UsersManager.swift in Sources */,
 				13BF2B0A2453438A00F65017 /* UserTableViewCell.swift in Sources */,
 				13BF2B042453303800F65017 /* SearchTableViewController.swift in Sources */,
+				13015C0D2453A18F002C78C1 /* MockData.swift in Sources */,
 				13BF2B0E2453454400F65017 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

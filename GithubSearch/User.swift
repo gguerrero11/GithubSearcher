@@ -17,6 +17,11 @@ struct User: Codable {
     
     // Transient Vars
     var repos: [Repo]?
+    var userProfile: UserProfile? {
+        didSet {
+//            print("did Set for \(userProfile)")
+        }
+    }
     
     enum CodingKeys: String, CodingKey {
         case id             = "id"
@@ -49,6 +54,7 @@ struct UserProfile: Codable {
     var location: String?
     var followers: Int?
     var following: Int?
+    var repoCount: Int?
     
     enum CodingKeys: String, CodingKey {
         case id          = "id"
@@ -59,6 +65,7 @@ struct UserProfile: Codable {
         case location    = "location"
         case followers   = "followers"
         case following   = "following"
+        case repoCount   = "public_repos"
     }
     
     init(from decoder: Decoder) throws {
@@ -71,6 +78,7 @@ struct UserProfile: Codable {
         location = try? container.decode(String.self, forKey: .location)
         followers = try? container.decode(Int.self, forKey: .followers)
         following = try? container.decode(Int.self, forKey: .following)
+        repoCount = try? container.decode(Int.self, forKey: .repoCount)
     }
     
     func encode(to encoder: Encoder) throws {

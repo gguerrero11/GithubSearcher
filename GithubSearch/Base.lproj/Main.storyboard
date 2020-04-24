@@ -82,7 +82,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="Lhv-H8-EQ6"/>
                     <connections>
-                        <outlet property="searchBar" destination="Z6N-o7-B5J" id="WUY-BR-VHP"/>
+                        <outlet property="searchBar" destination="uG8-tv-GFW" id="6dn-Qe-X8m"/>
                         <segue destination="Xaf-cw-O6Y" kind="show" identifier="detailPush" id="swv-c6-OsH"/>
                     </connections>
                 </tableViewController>

@@ -27,7 +27,6 @@ class DetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupInfo()
-
     }
     
     func setupInfo() {
@@ -43,21 +42,20 @@ class DetailTableViewController: UITableViewController {
         emailLabel.isHidden = true
         bioLabel.isHidden = true
         
-        manager?.getUserProfile(forUser: user, completion: { (userProf) in
-            self.setLabel(self.usernameLabel, withText: userProf.name)
-            self.setLabel(self.joinDateLabel, withText: userProf.joinDate?.toDate()?.toString())
-            self.setLabel(self.locationLabel, withText: userProf.location)
-            self.setLabel(self.emailLabel, withText: userProf.email)
-            self.setLabel(self.bioLabel, withText: userProf.biography)
-            
-            if let followers = userProf.followers {
-                self.setLabel(self.followersLabel, withText: String(followers))
-            }
-            
-            if let following = userProf.following {
-                self.setLabel(self.followingLabel, withText: String(following))
-            }
-        })
+        setLabel(self.usernameLabel, withText: user.userProfile?.name)
+        setLabel(self.joinDateLabel, withText: user.userProfile?.joinDate?.toDate()?.toString())
+        setLabel(self.locationLabel, withText: user.userProfile?.location)
+        setLabel(self.emailLabel, withText: user.userProfile?.email)
+        setLabel(self.bioLabel, withText: user.userProfile?.biography)
+        
+        if let followers = user.userProfile?.followers {
+            self.setLabel(self.followersLabel, withText: String(followers))
+        }
+        
+        if let following = user.userProfile?.following {
+            self.setLabel(self.followingLabel, withText: String(following))
+        }
+        
     }
     
     func setLabel(_ label: UILabel, withText possibleText: String?) {

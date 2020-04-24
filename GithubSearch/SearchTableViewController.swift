@@ -9,20 +9,31 @@
 import UIKit
 
 class SearchTableViewController: UITableViewController {
-
-    @IBOutlet var searchBar: UITableView!
+    
+    @IBOutlet weak var searchBar: UISearchBar!
     
     let manager = UsersManager()
     let userCellId = "userCell"
+    var userArray = [User]()
     
     var selectedIndex = -1
      
     override func viewDidLoad() {
         super.viewDidLoad()
         self.clearsSelectionOnViewWillAppear = false
+        searchBar.delegate = self
+        
         title = "GitHub Users"
         
+        manager.updatedSearchCallback = {
+            self.userArray = self.manager.searchResults
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+        
         manager.usersDownloadCallback = {
+            self.userArray = self.manager.users
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -36,24 +47,27 @@ class SearchTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return manager.users.count
+        return userArray.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let userCell = tableView.dequeueReusableCell(withIdentifier: userCellId, for: indexPath) as? UserTableViewCell {
-            let user = manager.users[indexPath.row]
-            userCell.userNameLabel.text = user.username
+            let user = userArray[indexPath.row]
             
-            if let repoCount = user.repos?.count {
+            if let userProf = user.userProfile, let repoCount = userProf.repoCount {
                 userCell.repoCountLabel.text = String(repoCount)
             } else {
-                manager.getRepos(forUser: user, completion: {
+                userCell.repoCountLabel.text = "0"
+                manager.getUserProfile(forUser: user) {
+//                    print("reloading \(indexPath.row)")
+//                    print("\(self.userArray[indexPath.row].userProfile)")
                     DispatchQueue.main.async {
                         self.tableView.reloadRows(at: [indexPath], with: .none)
                     }
-                })
+                }
             }
-        
+                        
+            userCell.userNameLabel.text = user.username
             userCell.profilePicImageView.setImageURL(string: user.imageURL)
             return userCell
         }
@@ -81,6 +95,12 @@ class SearchTableViewController: UITableViewController {
             }
         }
     }
-    
 
+}
+
+extension SearchTableViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        manager.handleSearch(word: searchText)
+        userArray = (searchText == "") ? manager.users : manager.searchResults
+    }
 }
