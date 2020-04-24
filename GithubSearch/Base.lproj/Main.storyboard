@@ -41,9 +41,6 @@
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="01O-II-pzz" userLabel="repoCount">
                                             <rect key="frame" x="352" y="27" width="32" height="21"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="32" id="OCS-1v-2Zs"/>
-                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                             <nil key="highlightedColor"/>
@@ -56,6 +53,7 @@
                                         </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="qw3-nR-Xum" firstAttribute="leading" secondItem="C9G-7h-oFn" secondAttribute="trailing" constant="15" id="7dG-PX-9xt"/>
                                         <constraint firstItem="qw3-nR-Xum" firstAttribute="trailing" secondItem="01O-II-pzz" secondAttribute="trailing" id="9G4-og-HZt"/>
                                         <constraint firstItem="01O-II-pzz" firstAttribute="leading" secondItem="C9G-7h-oFn" secondAttribute="trailing" constant="20" id="FVv-xt-M43"/>
                                         <constraint firstItem="C9G-7h-oFn" firstAttribute="centerY" secondItem="AoN-FT-C5h" secondAttribute="centerY" id="Lkw-oM-7wP"/>
@@ -74,7 +72,7 @@
                                     <outlet property="profilePicImageView" destination="axy-EV-KbE" id="NjM-rd-ZqS"/>
                                     <outlet property="repoCountLabel" destination="01O-II-pzz" id="maa-gA-I7K"/>
                                     <outlet property="userNameLabel" destination="C9G-7h-oFn" id="hK0-vv-J5m"/>
-                                    <segue destination="Xaf-cw-O6Y" kind="showDetail" identifier="detailTableViewController" id="Km3-N0-h5L"/>
+                                    <segue destination="Xaf-cw-O6Y" kind="show" identifier="detailPush" id="Km3-N0-h5L"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -97,7 +95,7 @@
             <objects>
                 <tableViewController id="Xaf-cw-O6Y" customClass="DetailTableViewController" customModule="GithubSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ZoB-bT-0Gw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="GMf-Iq-det" userLabel="headerView">
@@ -364,6 +362,7 @@
                             <outlet property="delegate" destination="Xaf-cw-O6Y" id="swB-GB-zXB"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="A6E-BD-cR0"/>
                     <connections>
                         <outlet property="bioLabel" destination="7HD-lR-Wjf" id="0c6-7h-xYV"/>
                         <outlet property="emailLabel" destination="705-XG-DHj" id="F28-tZ-tr8"/>

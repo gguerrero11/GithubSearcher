@@ -9,6 +9,7 @@
 import Foundation
 
 struct User: Codable {
+    var id: Int?
     var username: String?
     var imageURL: String?
     var reposURL: String?
@@ -25,6 +26,7 @@ struct User: Codable {
     var repos: [Repo]?
     
     enum CodingKeys: String, CodingKey {
+        case id             = "id"
         case username       = "login"
         case imageURL       = "avatar_url"
         case followersURL   = "followers_url"
@@ -34,6 +36,7 @@ struct User: Codable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
         username = try container.decode(String.self, forKey: .username)
         imageURL = try container.decode(String.self, forKey: .imageURL)
         followersURL = try container.decode(String.self, forKey: .followersURL)
@@ -43,5 +46,11 @@ struct User: Codable {
     
     func encode(to encoder: Encoder) throws {
         
+    }
+}
+
+extension User: Hashable {
+    static func == (lhs: User, rhs: User) -> Bool {
+        return lhs.id == rhs.id
     }
 }

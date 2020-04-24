@@ -9,7 +9,7 @@
 import UIKit
 
 class DetailTableViewController: UITableViewController {
-
+    
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var profilePicImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
@@ -21,6 +21,7 @@ class DetailTableViewController: UITableViewController {
     @IBOutlet weak var bioLabel: UILabel!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    var user: User? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -9,12 +9,14 @@
 import Foundation
 
 struct Repo: Codable {
+    var id: Int?
     var name: String?
     var url: String?
     var forks: Int = 0
     var stars: Int = 0
     
     enum CodingKeys: String, CodingKey {
+        case id             = "id"
         case name           = "name"
         case url            = "html_url"
         case forks          = "forks"
@@ -23,6 +25,7 @@ struct Repo: Codable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try? container.decode(Int.self, forKey: .id)
         name = try? container.decode(String.self, forKey: .name) 
         url = try? container.decode(String.self, forKey: .url)
         forks = try container.decode(Int.self, forKey: .forks)
@@ -33,4 +36,10 @@ struct Repo: Codable {
         
     }
 
+}
+
+extension Repo: Hashable {
+    static func == (lhs: Repo, rhs: Repo) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
