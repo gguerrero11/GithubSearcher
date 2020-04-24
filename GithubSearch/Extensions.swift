@@ -18,7 +18,7 @@ extension UIImageView {
         self.backgroundColor = .lightGray
         self.image = UIImage(systemName: "photo")?.withTintColor(.white)
         self.contentMode = .center
-        self.layer.cornerRadius = self.frame.height / 2
+//        self.layer.cornerRadius = self.frame.height / 2
         guard let string = string else { return }
         guard let url = URL(string: string) else { return }
         
@@ -38,6 +38,7 @@ extension UIImageView {
                 self?.image = resultImage
                 self?.contentMode = .scaleAspectFit
                 self?.backgroundColor = .clear
+                self?.layer.cornerRadius = (self?.frame.height ?? 0) / 2
             }
         }
     }

@@ -72,7 +72,6 @@
                                     <outlet property="profilePicImageView" destination="axy-EV-KbE" id="NjM-rd-ZqS"/>
                                     <outlet property="repoCountLabel" destination="01O-II-pzz" id="maa-gA-I7K"/>
                                     <outlet property="userNameLabel" destination="C9G-7h-oFn" id="hK0-vv-J5m"/>
-                                    <segue destination="Xaf-cw-O6Y" kind="show" identifier="detailPush" id="Km3-N0-h5L"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -84,6 +83,7 @@
                     <navigationItem key="navigationItem" id="Lhv-H8-EQ6"/>
                     <connections>
                         <outlet property="searchBar" destination="Z6N-o7-B5J" id="WUY-BR-VHP"/>
+                        <segue destination="Xaf-cw-O6Y" kind="show" identifier="detailPush" id="swv-c6-OsH"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q7M-ec-rel" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -99,16 +99,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="GMf-Iq-det" userLabel="headerView">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="375"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="343"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dw0-oh-jDE">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="375"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="343"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="7Nf-Ub-cfQ">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="207"/>
                                             <subviews>
-                                                <view clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="753" verticalCompressionResistancePriority="753" translatesAutoresizingMaskIntoConstraints="NO" id="gHL-1P-Lun" userLabel="imageContainer">
+                                                <view clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="gHL-1P-Lun" userLabel="imageContainer">
                                                     <rect key="frame" x="0.0" y="0.0" width="207" height="207"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xtf-N6-1sx">
@@ -133,9 +133,9 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="OMm-tb-qeQ">
                                                             <rect key="frame" x="0.0" y="20" width="187" height="167"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="@someusername" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HQ7-7i-Dg6" userLabel="username">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="someusername" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HQ7-7i-Dg6" userLabel="username">
                                                                     <rect key="frame" x="0.0" y="0.0" width="187" height="61"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -211,10 +211,10 @@
                                             </subviews>
                                         </stackView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0UX-99-jd8" userLabel="bioContainer">
-                                            <rect key="frame" x="0.0" y="207" width="414" height="62"/>
+                                            <rect key="frame" x="0.0" y="207" width="414" height="30"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="200" verticalHuggingPriority="199" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7HD-lR-Wjf" userLabel="biography">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="52"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="200" verticalHuggingPriority="206" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7HD-lR-Wjf" userLabel="biography">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -223,13 +223,13 @@
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
                                                 <constraint firstItem="7HD-lR-Wjf" firstAttribute="leading" secondItem="0UX-99-jd8" secondAttribute="leading" constant="20" id="H0q-xw-CH8"/>
-                                                <constraint firstAttribute="bottom" secondItem="7HD-lR-Wjf" secondAttribute="bottom" constant="10" id="ZLA-C6-01h"/>
+                                                <constraint firstAttribute="bottom" secondItem="7HD-lR-Wjf" secondAttribute="bottom" id="ZLA-C6-01h"/>
                                                 <constraint firstItem="7HD-lR-Wjf" firstAttribute="top" secondItem="0UX-99-jd8" secondAttribute="top" id="oBm-fN-z6j"/>
                                                 <constraint firstAttribute="trailing" secondItem="7HD-lR-Wjf" secondAttribute="trailing" constant="20" id="veQ-fq-xKl"/>
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VzC-hM-NDd" userLabel="repoLabelContainer">
-                                            <rect key="frame" x="0.0" y="269" width="414" height="50"/>
+                                            <rect key="frame" x="0.0" y="237" width="414" height="50"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="Repositories" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zep-Bg-0J2" userLabel="repoLabel">
                                                     <rect key="frame" x="20" y="10" width="374" height="30"/>
@@ -247,7 +247,7 @@
                                             </constraints>
                                         </view>
                                         <searchBar contentMode="redraw" verticalHuggingPriority="260" translatesAutoresizingMaskIntoConstraints="NO" id="GTy-ha-vPq">
-                                            <rect key="frame" x="0.0" y="319" width="414" height="56"/>
+                                            <rect key="frame" x="0.0" y="287" width="414" height="56"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </searchBar>
                                     </subviews>
@@ -263,7 +263,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="repoCell" rowHeight="70" id="UwV-jd-nfl" customClass="RepoTableViewCell" customModule="GithubSearch" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="403" width="414" height="70"/>
+                                <rect key="frame" x="0.0" y="371" width="414" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UwV-jd-nfl" id="oGC-FO-AQM">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>

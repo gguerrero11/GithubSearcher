@@ -13,35 +13,26 @@ struct User: Codable {
     var username: String?
     var imageURL: String?
     var reposURL: String?
-    var followersURL: String?
-    var followingURL: String?
-//    var joinDate: Date?
-//    var biography: String?
-//    var email: String?
-//    var location: String?
+    var profURL: String?
     
     // Transient Vars
-    var followers: [User]?
-    var following: [User]?
     var repos: [Repo]?
     
     enum CodingKeys: String, CodingKey {
         case id             = "id"
         case username       = "login"
         case imageURL       = "avatar_url"
-        case followersURL   = "followers_url"
-        case followingURL   = "following_url"
         case reposURL       = "repos_url"
+        case profURL        = "url"
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(Int.self, forKey: .id)
-        username = try container.decode(String.self, forKey: .username)
-        imageURL = try container.decode(String.self, forKey: .imageURL)
-        followersURL = try container.decode(String.self, forKey: .followersURL)
-        followingURL = try container.decode(String.self, forKey: .followingURL)
-        reposURL = try container.decode(String.self, forKey: .reposURL)
+        id = try? container.decode(Int.self, forKey: .id)
+        username = try? container.decode(String.self, forKey: .username)
+        imageURL = try? container.decode(String.self, forKey: .imageURL)
+        reposURL = try? container.decode(String.self, forKey: .reposURL)
+        profURL = try? container.decode(String.self, forKey: .profURL)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -49,8 +40,50 @@ struct User: Codable {
     }
 }
 
+struct UserProfile: Codable {
+    var id: Int?
+    var joinDate: String?
+    var biography: String?
+    var email: String?
+    var location: String?
+    var followers: Int?
+    var following: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case id          = "id"
+        case joinDate    = "created_at"
+        case biography   = "bio"
+        case email       = "email"
+        case location    = "location"
+        case followers   = "followers"
+        case following   = "following"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try? container.decode(Int.self, forKey: .id)
+        joinDate = try? container.decode(String.self, forKey: .joinDate)
+        biography = try? container.decode(String.self, forKey: .biography)
+        email = try? container.decode(String.self, forKey: .email)
+        location = try? container.decode(String.self, forKey: .location)
+        followers = try? container.decode(Int.self, forKey: .followers)
+        following = try? container.decode(Int.self, forKey: .following)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        
+    }
+
+}
+
 extension User: Hashable {
     static func == (lhs: User, rhs: User) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
+extension UserProfile: Hashable {
+    static func == (lhs: UserProfile, rhs: UserProfile) -> Bool {
         return lhs.id == rhs.id
     }
 }

@@ -20,6 +20,8 @@ class SearchTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.clearsSelectionOnViewWillAppear = false
+        title = "GitHub Users"
+        
         manager.usersDownloadCallback = {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -65,17 +67,19 @@ class SearchTableViewController: UITableViewController {
   // MARK: - Table view delegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedIndex = indexPath.row
+        performSegue(withIdentifier: "detailPush", sender: indexPath)
     }
 
     
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if var detailView = segue.destination as? DetailTableViewController {
-//            detailView.user = manager.users[selectedIndex]
-//        }
-        // Pass the selected object to the new view controller.
+        if let dest = segue.destination as? DetailTableViewController {
+            if let indexPath = sender as? IndexPath {
+                dest.user = manager.users[indexPath.row]
+                dest.manager = manager
+            }
+        }
     }
     
 

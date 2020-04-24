@@ -11,19 +11,47 @@ import UIKit
 
 class UsersManager {
     var users = [User]()
+    var userProfiles = [UserProfile]()
     var usersDownloadCallback: (()->Void)?
+    var usersProfileDlCallback: (()->Void)?
     let usersUrl = "https://api.github.com/users-u=gguerrero11"
-    let isMockData = false
+    let isMockData = true
     
     init() {
         getUsers()
+    }
+    
+    func getUserProfile(forUser user: User, completion: @escaping (UserProfile)->Void) {
+        
+        if isMockData {
+            do {
+                let userProfMock = try JSONDecoder().decode(UserProfile.self, from: mockProfile)
+                completion(userProfMock)
+            } catch {
+                print("bug with mock profile decoder: \(error)")
+            }
+            return
+        }
+        
+        if let userProfile = userProfiles.first(where: {$0.id == user.id }) {
+            completion(userProfile)
+            return
+        }
+        
+        if let profURL = user.profURL, let url = URL(string: profURL) {
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                if let userProf: UserProfile = self.handleData(data: data) {
+                    completion(userProf)
+                }
+            }.resume()
+        }
     }
     
     func getRepos(forUser user: User, completion: @escaping ( ()->Void ) ) {
         guard !isMockData else { return }
         if let reposURL = user.reposURL, let url = URL(string: reposURL) {
             URLSession.shared.dataTask(with: url) { data, response, error in
-                let xRepos: [Repo] = self.handleData(data: data)
+                let xRepos: [Repo] = self.handleArrayData(data: data)
                 if let index = self.users.firstIndex(of: user) {
                     self.users[index].repos = xRepos
                 }
@@ -35,7 +63,7 @@ class UsersManager {
     func getUsers() {
         if let url = URL(string: usersUrl) {
             URLSession.shared.dataTask(with: url) { data, response, error in
-                self.users = self.handleData(data: data)
+                self.users = self.handleArrayData(data: data)
                 if let callback = self.usersDownloadCallback {
                     callback()
                 }
@@ -43,9 +71,9 @@ class UsersManager {
         }
     }
     
-    func handleData<T: Decodable>(data: Data?) -> [T] {
+    func handleArrayData<T: Decodable>(data: Data?) -> [T] {
         if let data = data {
-            guard !isMockData else { return try! JSONDecoder().decode([T].self, from: mockData.data(using: .utf8)!) }
+            guard !isMockData else { return try! JSONDecoder().decode([T].self, from: mockData) }
             if let jsonString = String(data: data, encoding: .utf8) {
                 do {
                     if let jsonData = jsonString.data(using: .utf8) {
@@ -58,6 +86,23 @@ class UsersManager {
             }
         }
         return []
+    }
+    
+    func handleData<T: Decodable>(data: Data?) -> T? {
+        if let data = data {
+            guard !isMockData else { return try? JSONDecoder().decode(T.self, from: mockProfile) }
+            if let jsonString = String(data: data, encoding: .utf8) {
+                do {
+                    if let jsonData = jsonString.data(using: .utf8) {
+                        let object = try JSONDecoder().decode(T.self, from: jsonData)
+                        return object
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+        }
+        return nil
     }
     
     /// Cache the image. The return is an optional, if it returns nil, the image was not found.
@@ -723,4 +768,40 @@ let mockData = """
         "site_admin": false
     }
 ]
-"""
+""".data(using: .utf8)!
+
+let mockProfile = """
+{
+    "login": "vanpelt",
+    "id": 17,
+    "node_id": "MDQ6VXNlcjE3",
+    "avatar_url": "https://avatars1.githubusercontent.com/u/17?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/vanpelt",
+    "html_url": "https://github.com/vanpelt",
+    "followers_url": "https://api.github.com/users/vanpelt/followers",
+    "following_url": "https://api.github.com/users/vanpelt/following{/other_user}",
+    "gists_url": "https://api.github.com/users/vanpelt/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/vanpelt/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/vanpelt/subscriptions",
+    "organizations_url": "https://api.github.com/users/vanpelt/orgs",
+    "repos_url": "https://api.github.com/users/vanpelt/repos",
+    "events_url": "https://api.github.com/users/vanpelt/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/vanpelt/received_events",
+    "type": "User",
+    "site_admin": false,
+    "name": "Chris Van Pelt",
+    "company": "crowdflower.com",
+    "blog": "wandb.com",
+    "location": "San Francisco",
+    "email": null,
+    "hireable": null,
+    "bio": null,
+    "public_repos": 54,
+    "public_gists": 49,
+    "followers": 115,
+    "following": 15,
+    "created_at": "2008-01-13T05:57:18Z",
+    "updated_at": "2020-04-22T04:35:58Z"
+}
+""".data(using: .utf8)!

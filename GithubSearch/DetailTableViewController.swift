@@ -22,15 +22,35 @@ class DetailTableViewController: UITableViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     var user: User? = nil
+    var manager: UsersManager? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupInfo()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    func setupInfo() {
+        guard let user = user else { return }
+        title = user.username
+        profilePicImageView.setImageURL(string: user.imageURL)
+        usernameLabel.text = user.username
+        
+        joinDateLabel.text = "???"
+        locationLabel.text = "???"
+        emailLabel.text = "???"
+        followersLabel.text = "???"
+        followingLabel.text = "???"
+        bioLabel.text = "???"
+        
+        manager?.getUserProfile(forUser: user, completion: { (userProf) in
+            self.joinDateLabel.text = userProf.joinDate ?? "Not listed"
+            self.locationLabel.text = userProf.location ?? "Not listed"
+            self.emailLabel.text = userProf.email ?? "Not listed"
+            self.followersLabel.text = String(userProf.followers ?? 0)
+            self.followingLabel.text = String(userProf.following ?? 0 )
+            self.bioLabel.text = userProf.biography ?? "Not listed"
+        })
     }
 
     // MARK: - Table view data source
