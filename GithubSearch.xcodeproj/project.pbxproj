@@ -19,6 +19,7 @@
 		13BF2B0C2453451700F65017 /* UsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BF2B0B2453451700F65017 /* UsersManager.swift */; };
 		13BF2B0E2453454400F65017 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BF2B0D2453454300F65017 /* User.swift */; };
 		13BF2B10245348A800F65017 /* Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BF2B0F245348A800F65017 /* Repo.swift */; };
+		13BF2B1424534F1600F65017 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BF2B1324534F1600F65017 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		13BF2B0B2453451700F65017 /* UsersManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersManager.swift; sourceTree = "<group>"; };
 		13BF2B0D2453454300F65017 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		13BF2B0F245348A800F65017 /* Repo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repo.swift; sourceTree = "<group>"; };
+		13BF2B1324534F1600F65017 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				13BF2B0B2453451700F65017 /* UsersManager.swift */,
 				13BF2B0D2453454300F65017 /* User.swift */,
 				13BF2B0F245348A800F65017 /* Repo.swift */,
+				13BF2B1324534F1600F65017 /* Extensions.swift */,
 				13BF2AEF24532E2F00F65017 /* AppDelegate.swift */,
 				13BF2AF124532E2F00F65017 /* SceneDelegate.swift */,
 				13BF2AF524532E3000F65017 /* Main.storyboard */,
@@ -161,6 +164,7 @@
 				13BF2AF224532E2F00F65017 /* SceneDelegate.swift in Sources */,
 				13BF2B10245348A800F65017 /* Repo.swift in Sources */,
 				13BF2B082453433B00F65017 /* RepoTableViewCell.swift in Sources */,
+				13BF2B1424534F1600F65017 /* Extensions.swift in Sources */,
 				13BF2B0C2453451700F65017 /* UsersManager.swift in Sources */,
 				13BF2B0A2453438A00F65017 /* UserTableViewCell.swift in Sources */,
 				13BF2B042453303800F65017 /* SearchTableViewController.swift in Sources */,

@@ -19,34 +19,38 @@ class UsersManager {
         getUsers()
     }
     
+    func getRepos(forUser user: User) {
+        if let reposURL = user.reposURL, let url = URL(string: reposURL) {
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                // do something
+            }.resume()
+        }
+    }
+        
     func getUsers() {
         if let url = URL(string: usersUrl) {
             URLSession.shared.dataTask(with: url) { data, response, error in
-                self.handleData(data: data)
+                self.users = self.handleData(data: data)
+                if let callback = self.usersDownloadCallback {
+                    callback()
+                }
             }.resume()
         }
     }
     
-    func handleData(data: Data?) {
+    func handleData<T: Decodable>(data: Data?) -> [T] {
         if let data = data {
             if let jsonString = String(data: data, encoding: .utf8) {
-                print(jsonString)
-                handleJSONString(jsonString)
+                do {
+                    let jsonData = jsonString.data(using: .utf8)!
+                    let objects = try JSONDecoder().decode([T].self, from: jsonData)
+                    return objects
+                } catch {
+                    print(error)
+                }
             }
         }
-    }
-    
-    func handleJSONString(_ jsonString: String) {
-        do {
-            let jsonData = jsonString.data(using: .utf8)!
-            let response = try JSONDecoder().decode(Response.self, from: jsonData)
-//            self.users = response.feed.results
-            if let callback = self.usersDownloadCallback {
-                callback()
-            }
-        } catch {
-            print(error)
-        }
+        return []
     }
     
     /// Cache the image. The return is an optional, if it returns nil, the image was not found.
@@ -106,13 +110,4 @@ class UsersManager {
         return fullPath.relativePath
     }
     
-}
-
-struct Response: Codable {
-//    var feed: Feed
-//
-//    struct Feed: Codable {
-//        var results: [Users]
-//        var title: String?
-//    }
 }

@@ -10,7 +10,7 @@
         <scene sceneID="2UY-8n-LiE">
             <objects>
                 <tableViewController id="p4T-NF-uKE" customClass="SearchTableViewController" customModule="GithubSearch" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Z6N-o7-B5J">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Z6N-o7-B5J" userLabel="TableView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -20,38 +20,49 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userCell" rowHeight="62" id="Ph2-bW-cDG" customClass="UserTableViewCell" customModule="GithubSearch" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="414" height="62"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userCell" rowHeight="75" id="Ph2-bW-cDG" customClass="UserTableViewCell" customModule="GithubSearch" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="414" height="75"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ph2-bW-cDG" id="AoN-FT-C5h">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="62"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="axy-EV-KbE">
-                                            <rect key="frame" x="13" y="11" width="40" height="40"/>
+                                            <rect key="frame" x="13" y="11" width="53" height="53"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="axy-EV-KbE" secondAttribute="height" multiplier="1:1" id="e3Y-CV-Wft"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="someUsername" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9G-7h-oFn" userLabel="username">
-                                            <rect key="frame" x="68" y="20.5" width="264" height="21"/>
+                                            <rect key="frame" x="81" y="27" width="251" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="01O-II-pzz" userLabel="repoCount">
-                                            <rect key="frame" x="352" y="20.5" width="32" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="01O-II-pzz" userLabel="repoCount">
+                                            <rect key="frame" x="352" y="27" width="32" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="32" id="OCS-1v-2Zs"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="REPOS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qw3-nR-Xum">
+                                            <rect key="frame" x="347" y="14.5" width="37" height="13.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="qw3-nR-Xum" firstAttribute="trailing" secondItem="01O-II-pzz" secondAttribute="trailing" id="9G4-og-HZt"/>
                                         <constraint firstItem="01O-II-pzz" firstAttribute="leading" secondItem="C9G-7h-oFn" secondAttribute="trailing" constant="20" id="FVv-xt-M43"/>
                                         <constraint firstItem="C9G-7h-oFn" firstAttribute="centerY" secondItem="AoN-FT-C5h" secondAttribute="centerY" id="Lkw-oM-7wP"/>
                                         <constraint firstItem="01O-II-pzz" firstAttribute="centerY" secondItem="AoN-FT-C5h" secondAttribute="centerY" id="Pgj-gC-XOu"/>
                                         <constraint firstItem="C9G-7h-oFn" firstAttribute="leading" secondItem="axy-EV-KbE" secondAttribute="trailing" constant="15" id="m6C-Nq-NKd"/>
                                         <constraint firstAttribute="trailing" secondItem="01O-II-pzz" secondAttribute="trailing" constant="30" id="oqV-1e-hiv"/>
+                                        <constraint firstItem="01O-II-pzz" firstAttribute="top" secondItem="qw3-nR-Xum" secondAttribute="bottom" constant="-1" id="vRn-4I-UQB"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <constraints>
