@@ -42,6 +42,7 @@ struct User: Codable {
 
 struct UserProfile: Codable {
     var id: Int?
+    var name: String?
     var joinDate: String?
     var biography: String?
     var email: String?
@@ -51,6 +52,7 @@ struct UserProfile: Codable {
     
     enum CodingKeys: String, CodingKey {
         case id          = "id"
+        case name        = "name"
         case joinDate    = "created_at"
         case biography   = "bio"
         case email       = "email"
@@ -62,6 +64,7 @@ struct UserProfile: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try? container.decode(Int.self, forKey: .id)
+        name = try? container.decode(String.self, forKey: .name)
         joinDate = try? container.decode(String.self, forKey: .joinDate)
         biography = try? container.decode(String.self, forKey: .biography)
         email = try? container.decode(String.self, forKey: .email)

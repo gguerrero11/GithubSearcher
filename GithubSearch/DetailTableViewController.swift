@@ -34,23 +34,37 @@ class DetailTableViewController: UITableViewController {
         guard let user = user else { return }
         title = user.username
         profilePicImageView.setImageURL(string: user.imageURL)
-        usernameLabel.text = user.username
         
-        joinDateLabel.text = "???"
-        locationLabel.text = "???"
-        emailLabel.text = "???"
-        followersLabel.text = "???"
-        followingLabel.text = "???"
-        bioLabel.text = "???"
+        joinDateLabel.isHidden = true
+        locationLabel.isHidden = true
+        emailLabel.isHidden = true
+        followersLabel.text = "-"
+        followingLabel.text = "-"
+        emailLabel.isHidden = true
+        bioLabel.isHidden = true
         
         manager?.getUserProfile(forUser: user, completion: { (userProf) in
-            self.joinDateLabel.text = userProf.joinDate ?? "Not listed"
-            self.locationLabel.text = userProf.location ?? "Not listed"
-            self.emailLabel.text = userProf.email ?? "Not listed"
-            self.followersLabel.text = String(userProf.followers ?? 0)
-            self.followingLabel.text = String(userProf.following ?? 0 )
-            self.bioLabel.text = userProf.biography ?? "Not listed"
+            self.setLabel(self.usernameLabel, withText: userProf.name)
+            self.setLabel(self.joinDateLabel, withText: userProf.joinDate?.toDate()?.toString())
+            self.setLabel(self.locationLabel, withText: userProf.location)
+            self.setLabel(self.emailLabel, withText: userProf.email)
+            self.setLabel(self.bioLabel, withText: userProf.biography)
+            
+            if let followers = userProf.followers {
+                self.setLabel(self.followersLabel, withText: String(followers))
+            }
+            
+            if let following = userProf.following {
+                self.setLabel(self.followingLabel, withText: String(following))
+            }
         })
+    }
+    
+    func setLabel(_ label: UILabel, withText possibleText: String?) {
+        if let text = possibleText {
+            label.isHidden = false
+            label.text = text
+        }
     }
 
     // MARK: - Table view data source

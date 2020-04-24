@@ -46,7 +46,7 @@ extension UIImageView {
 
 extension String {
 
-    func toDate(withFormat format: String = "yyyy-MM-dd")-> Date?{
+    func toDate(withFormat format: String = "yyyy-MM-ddThh:mm:ssZ")-> Date?{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         let date = dateFormatter.date(from: self)
