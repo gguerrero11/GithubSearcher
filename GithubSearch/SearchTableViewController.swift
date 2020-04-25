@@ -50,7 +50,6 @@ class SearchTableViewController: UITableViewController {
             if let userProf = user.userProfile, let repoCount = userProf.repoCount {
                 userCell.repoCountLabel.text = String(repoCount)
             } else {
-//                userCell.repoCountLabel.text = "0"
                 manager.getUserProfile(forUser: user) { profile in
                     if let repoCount = profile.repoCount {
                         DispatchQueue.main.async {
@@ -93,12 +92,19 @@ class SearchTableViewController: UITableViewController {
 
 extension SearchTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        manager.handleUserSearch(word: searchText, completion: {
-            self.userArray = (searchText == "") ? self.manager.users : self.manager.userSearchResults
+        if searchText != "" {
+            userArray = self.manager.users
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-        })
+        } else {
+            manager.handleUserSearch(word: searchText, completion: {
+                self.userArray = self.manager.userSearchResults
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            })
+        }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

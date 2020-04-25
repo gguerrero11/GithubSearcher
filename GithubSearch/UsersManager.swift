@@ -17,7 +17,7 @@ class UsersManager {
     var usersDownloadCallback: (()->Void)?
     var usersProfileDlCallback: (()->Void)?
     let usersUrl = "https://api.github.com/users"
-    let isMockData = false
+    let isMockData = true
     
     init() {
         getUsers()
@@ -79,7 +79,6 @@ class UsersManager {
     }
     
     func handleArrayData<T: Decodable>(data: Data?) -> [T] {
-        
         if let data = data {
             if let jsonString = String(data: data, encoding: .utf8) {
                 do {

@@ -118,12 +118,20 @@ extension DetailTableViewController: UISearchBarDelegate {
         guard let user = user else { return }
         guard let manager = manager else { return }
         guard let repos = user.repos else { return }
-        manager.handleRepoSearch(word: searchText, forUser: user, completion: {
-            self.listArray = (searchText == "") ? repos : manager.repoSearchResults
+        
+        if searchText != "" {
+            listArray = repos
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-        })
+        } else {
+            manager.handleUserSearch(word: searchText, completion: {
+                self.listArray = manager.repoSearchResults
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            })
+        }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
