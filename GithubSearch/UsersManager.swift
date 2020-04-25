@@ -17,10 +17,9 @@ class UsersManager {
     var usersDownloadCallback: (()->Void)?
     var usersProfileDlCallback: (()->Void)?
     let usersUrl = "https://api.github.com/users"
-    let isMockData = true
+    let isMockData = false
     
     init() {
-        getUsers()
     }
     
     func getUserProfile(forUser user: User, completion: @escaping (UserProfile)->Void) {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailTableViewController: UITableViewController {
+class DetailViewController: UIViewController {
     
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var profilePicImageView: UIImageView!
@@ -19,18 +19,24 @@ class DetailTableViewController: UITableViewController {
     @IBOutlet weak var followersLabel: UILabel!
     @IBOutlet weak var followingLabel: UILabel!
     @IBOutlet weak var bioLabel: UILabel!
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
     
     var user: User? = nil
     var manager: UsersManager? = nil
     var listArray = [Repo]()
     
+    var headerHeight: CGFloat = 250
+    var headerHeightMin: CGFloat  = 0
+    
+    let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
     let repoCellId = "repoCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupInfo()
         searchBar.delegate = self
+        tableView.delegate = self
+        tableView.dataSource = self
         
         guard let user = user else { return }
         if let repos = user.repos {
@@ -81,18 +87,20 @@ class DetailTableViewController: UITableViewController {
             label.text = text
         }
     }
-
+}
     // MARK: - Table view data source
+    
+extension DetailViewController: UITableViewDataSource {
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return listArray.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: repoCellId, for: indexPath) as? RepoTableViewCell {
             let repo = listArray[indexPath.row]
             cell.repoName.text = repo.name ?? "No name repo"
@@ -102,24 +110,36 @@ class DetailTableViewController: UITableViewController {
         }
         return UITableViewCell()
     }
+}
     
     // MARK: - Table view delegate
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+extension DetailViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if let repo = user?.repos?[indexPath.row], let urlString = repo.url, let url = URL(string: urlString)  {
+        let repo = listArray[indexPath.row]
+        if let urlString = repo.url, let url = URL(string: urlString)  {
             guard UIApplication.shared.canOpenURL(url) else { return }
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return searchBar
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 44
+    }
 }
 
-extension DetailTableViewController: UISearchBarDelegate {
+extension DetailViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let user = user else { return }
         guard let manager = manager else { return }
         guard let repos = user.repos else { return }
         
-        if searchText != "" {
+        if searchText == "" {
             listArray = repos
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -135,8 +155,55 @@ extension DetailTableViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        resignFirstResponder()
+        searchBar.resignFirstResponder()
+    }
+    
+//    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+//        tableView.layoutIfNeeded()
+//    }
+//
+//    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+//        tableView.layoutIfNeeded()
+//    }
+}
+
+extension DetailViewController {
+    func addObservers() {
+        // Listen for keyboard appearances and disappearances
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(DetailViewController.keyboardDidShow),
+                                               name: UIResponder.keyboardDidShowNotification,
+                                               object: nil)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(DetailViewController.keyboardDidHide),
+                                               name: UIResponder.keyboardDidHideNotification,
+                                               object: nil)
+    }
+
+    @objc func keyboardDidShow(notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            DispatchQueue.main.async {
+                self.tableView.contentOffset = CGPoint(x: 0, y: keyboardRectangle.height)
+            }
+        }
+        
+    }
+    
+    @objc func keyboardDidHide(notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            DispatchQueue.main.async {
+                self.tableView.contentOffset = CGPoint(x: 0, y: -keyboardRectangle.height)
+            }
+        }
     }
 }
 
-
+extension DetailViewController {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let delta = 0 - tableView.contentOffset.y
+        if delta > 60 { searchBar.resignFirstResponder() }
+    }
+}

@@ -10,7 +10,7 @@ import UIKit
 
 class SearchTableViewController: UITableViewController {
     
-    @IBOutlet weak var searchBar: UISearchBar!
+    let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
     
     let manager = UsersManager()
     let userCellId = "userCell"
@@ -25,6 +25,7 @@ class SearchTableViewController: UITableViewController {
         
         title = "GitHub Users"
         
+        manager.getUsers()
         manager.usersDownloadCallback = {
             self.userArray = self.manager.users
             DispatchQueue.main.async {
@@ -69,18 +70,27 @@ class SearchTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
+    
 
   // MARK: - Table view delegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "detailPush", sender: indexPath)
     }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return searchBar
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        44
+    }
 
     
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let dest = segue.destination as? DetailTableViewController {
+        if let dest = segue.destination as? DetailViewController {
             if let indexPath = sender as? IndexPath {
                 dest.user = manager.users[indexPath.row]
                 dest.manager = manager
@@ -92,7 +102,7 @@ class SearchTableViewController: UITableViewController {
 
 extension SearchTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText != "" {
+        if searchText == "" {
             userArray = self.manager.users
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -108,6 +118,13 @@ extension SearchTableViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        resignFirstResponder()
+        searchBar.resignFirstResponder()
+    }
+}
+
+extension SearchTableViewController {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let delta = 0 - tableView.contentOffset.y
+        if delta > 140 { searchBar.resignFirstResponder() }
     }
 }
