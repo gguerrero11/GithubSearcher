@@ -16,6 +16,7 @@ class UsersManager {
     var userProfiles = [UserProfile]()
     var usersDownloadCallback: (()->Void)?
     var usersProfileDlCallback: (()->Void)?
+    var alertCallback: ((UIAlertController)->())?
     let usersUrl = "https://api.github.com/users"
     let isMockData = false
     
@@ -35,6 +36,7 @@ class UsersManager {
         guard user.userProfile == nil else { return }
         if let profURL = user.profURL, let url = URL(string: profURL) {
             URLSession.shared.dataTask(with: url) { data, response, error in
+                self.checkResponse(response: response)
                 if let userProf: UserProfile = self.handleData(data: data) {
                     if let index = self.users.firstIndex(where: { $0.id == userProf.id }) {
                         self.users[index].userProfile = userProf
@@ -57,6 +59,7 @@ class UsersManager {
         
         if let reposURL = user.reposURL, let url = URL(string: reposURL) {
             URLSession.shared.dataTask(with: url) { data, response, error in
+                self.checkResponse(response: response)
                 let xRepos: [Repo] = self.handleArrayData(data : data)
                 if let index = self.users.firstIndex(of: user) {
                     self.users[index].repos = xRepos
@@ -69,6 +72,7 @@ class UsersManager {
     func getUsers() {
         if let url = URL(string: usersUrl) {
             URLSession.shared.dataTask(with: url) { data, response, error in
+                self.checkResponse(response: response)
                 self.users = self.handleArrayData(data: data)
                 if let callback = self.usersDownloadCallback {
                     callback()
@@ -107,6 +111,20 @@ class UsersManager {
             }
         }
         return nil
+    }
+    
+    func checkResponse(response: URLResponse?) {
+        if let httpResponse = response as? HTTPURLResponse {
+            if httpResponse.statusCode == 403 {
+                let alert = UIAlertController(title: nil, message: "API rate limit exceeded", preferredStyle: .alert)
+                let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
+                alert.addAction(cancelAction)
+                
+                if let alertCallback = self.alertCallback {
+                    alertCallback(alert)
+                }
+            }
+        }
     }
     
     /// Cache the image. The return is an optional, if it returns nil, the image was not found.

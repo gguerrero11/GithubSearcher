@@ -49,6 +49,12 @@ class DetailViewController: UIViewController {
                 }
             })
         }
+        
+        manager?.alertCallback = { alert in
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
          
     }
     

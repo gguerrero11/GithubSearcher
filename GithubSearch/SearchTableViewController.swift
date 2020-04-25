@@ -32,6 +32,12 @@ class SearchTableViewController: UITableViewController {
                 self.tableView.reloadData()
             }
         }
+        
+        manager.alertCallback = { alert in
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
     }
 
     // MARK: - Table view data source
@@ -92,7 +98,7 @@ class SearchTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dest = segue.destination as? DetailViewController {
             if let indexPath = sender as? IndexPath {
-                dest.user = self.userArray[indexPath.row]
+                dest.user = self.manager.users[indexPath.row]
                 dest.manager = manager
             }
         }
