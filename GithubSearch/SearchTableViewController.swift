@@ -103,4 +103,8 @@ extension SearchTableViewController: UISearchBarDelegate {
         manager.handleSearch(word: searchText)
         userArray = (searchText == "") ? manager.users : manager.searchResults
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        resignFirstResponder()
+    }
 }

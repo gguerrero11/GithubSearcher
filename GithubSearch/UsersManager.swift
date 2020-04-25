@@ -24,12 +24,20 @@ class UsersManager {
     }
     
     func getUserProfile(forUser user: User, completion: @escaping ()->Void) {
+        guard !isMockData else {
+            let profile = try! JSONDecoder().decode(UserProfile.self, from: mockProfile)
+            if let index = self.users.firstIndex(of: user) {
+                self.users[index].userProfile = profile
+//                completion()
+            }
+            return
+        }
+        
         guard user.userProfile == nil else { return }
         if let profURL = user.profURL, let url = URL(string: profURL) {
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let userProf: UserProfile = self.handleData(data: self.isMockData ? mockProfile : data) {
                     if let index = self.users.firstIndex(where: { $0.id == userProf.id }) {
-//                        print("setting for userID \(self.users[index].id!)")
                         self.users[index].userProfile = userProf
                         completion()
                     }
@@ -39,6 +47,15 @@ class UsersManager {
     }
     
     func getRepos(forUser user: User, completion: @escaping ( ()->Void ) ) {
+        guard !isMockData else {
+            let repos = try! JSONDecoder().decode([Repo].self, from: mockRepo)
+            if let index = self.users.firstIndex(of: user) {
+                self.users[index].repos = repos
+                completion()
+            }
+            return
+        }
+        
         if let reposURL = user.reposURL, let url = URL(string: reposURL) {
             URLSession.shared.dataTask(with: url) { data, response, error in
                 let xRepos: [Repo] = self.handleArrayData(data: (self.isMockData) ? mockRepo : data)
@@ -53,7 +70,7 @@ class UsersManager {
     func getUsers() {
         if let url = URL(string: usersUrl) {
             URLSession.shared.dataTask(with: url) { data, response, error in
-                self.users = self.handleArrayData(data: self.isMockData ? mockData : data)
+                self.users = self.handleArrayData(data: data)
                 if let callback = self.usersDownloadCallback {
                     callback()
                 }
@@ -62,11 +79,12 @@ class UsersManager {
     }
     
     func handleArrayData<T: Decodable>(data: Data?) -> [T] {
+        
         if let data = data {
             if let jsonString = String(data: data, encoding: .utf8) {
                 do {
                     if let jsonData = jsonString.data(using: .utf8) {
-                        let objects = try JSONDecoder().decode([T].self, from: jsonData)
+                        let objects = try JSONDecoder().decode([T].self, from: isMockData ? mockData : jsonData)
                         return objects
                     }
                 } catch {
@@ -79,7 +97,6 @@ class UsersManager {
     
     func handleData<T: Decodable>(data: Data?) -> T? {
         if let data = data {
-            guard !isMockData else { return try? JSONDecoder().decode(T.self, from: mockProfile) }
             if let jsonString = String(data: data, encoding: .utf8) {
                 do {
                     if let jsonData = jsonString.data(using: .utf8) {
