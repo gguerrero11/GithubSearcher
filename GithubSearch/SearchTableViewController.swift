@@ -25,13 +25,6 @@ class SearchTableViewController: UITableViewController {
         
         title = "GitHub Users"
         
-        manager.updatedSearchCallback = {
-            self.userArray = self.manager.searchResults
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-        
         manager.usersDownloadCallback = {
             self.userArray = self.manager.users
             DispatchQueue.main.async {
@@ -57,12 +50,12 @@ class SearchTableViewController: UITableViewController {
             if let userProf = user.userProfile, let repoCount = userProf.repoCount {
                 userCell.repoCountLabel.text = String(repoCount)
             } else {
-                userCell.repoCountLabel.text = "0"
-                manager.getUserProfile(forUser: user) {
-//                    print("reloading \(indexPath.row)")
-//                    print("\(self.userArray[indexPath.row].userProfile)")
-                    DispatchQueue.main.async {
-                        self.tableView.reloadRows(at: [indexPath], with: .none)
+//                userCell.repoCountLabel.text = "0"
+                manager.getUserProfile(forUser: user) { profile in
+                    if let repoCount = profile.repoCount {
+                        DispatchQueue.main.async {
+                            userCell.repoCountLabel.text = String(repoCount)
+                        }
                     }
                 }
             }
@@ -100,8 +93,12 @@ class SearchTableViewController: UITableViewController {
 
 extension SearchTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        manager.handleSearch(word: searchText)
-        userArray = (searchText == "") ? manager.users : manager.searchResults
+        manager.handleUserSearch(word: searchText, completion: {
+            self.userArray = (searchText == "") ? self.manager.users : self.manager.userSearchResults
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        })
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

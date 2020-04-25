@@ -23,6 +23,7 @@ class DetailTableViewController: UITableViewController {
     
     var user: User? = nil
     var manager: UsersManager? = nil
+    var listArray = [Repo]()
     
     let repoCellId = "repoCell"
     
@@ -32,12 +33,17 @@ class DetailTableViewController: UITableViewController {
         searchBar.delegate = self
         
         guard let user = user else { return }
-        manager?.getRepos(forUser: user, completion: {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        })
-        
+        if let repos = user.repos {
+            listArray = repos
+        } else {
+            manager?.getRepos(forUser: user, completion: { repos in
+                self.listArray = repos
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            })
+        }
+         
     }
     
     func setupInfo() {
@@ -83,16 +89,15 @@ class DetailTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return user?.repos?.count ?? 0
+        return listArray.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: repoCellId, for: indexPath) as? RepoTableViewCell {
-            if let repo = user?.repos?[indexPath.row] {
-                cell.repoName.text = repo.name ?? "No name repo"
-                cell.starsLabel.text = String(repo.stars ?? 0)
-                cell.forksLabel.text = String(repo.forks ?? 0)
-            }
+            let repo = listArray[indexPath.row]
+            cell.repoName.text = repo.name ?? "No name repo"
+            cell.starsLabel.text = String(repo.stars ?? 0)
+            cell.forksLabel.text = String(repo.forks ?? 0)
             return cell
         }
         return UITableViewCell()
@@ -110,9 +115,15 @@ class DetailTableViewController: UITableViewController {
 
 extension DetailTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard let user = user else { return }
         guard let manager = manager else { return }
-//        manager.handleSearch(word: searchText)
-//        userArray = (searchText == "") ? manager.users : manager.searchResults
+        guard let repos = user.repos else { return }
+        manager.handleRepoSearch(word: searchText, forUser: user, completion: {
+            self.listArray = (searchText == "") ? repos : manager.repoSearchResults
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        })
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

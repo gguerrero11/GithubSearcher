@@ -668,7 +668,7 @@ let mockProfile = """
 let mockRepo = """
 [
     {
-        "id": 58215,
+        "id": 17,
         "node_id": "MDEwOlJlcG9zaXRvcnk1ODIxNQ==",
         "name": "amqp",
         "full_name": "vanpelt/amqp",
@@ -762,7 +762,7 @@ let mockRepo = """
         "default_branch": "master"
     },
     {
-        "id": 17235047,
+        "id": 16,
         "node_id": "MDEwOlJlcG9zaXRvcnkxNzIzNTA0Nw==",
         "name": "analytics-ruby",
         "full_name": "vanpelt/analytics-ruby",
@@ -856,7 +856,7 @@ let mockRepo = """
         "default_branch": "master"
     },
     {
-        "id": 18422658,
+        "id": 3,
         "node_id": "MDEwOlJlcG9zaXRvcnkxODQyMjY1OA==",
         "name": "api-blueprint",
         "full_name": "vanpelt/api-blueprint",
@@ -995,7 +995,7 @@ let mockRepo = """
 
 let test = """
     {
-        "id": 111990595,
+        "id": 1,
         "node_id": "MDEwOlJlcG9zaXRvcnkxMTE5OTA1OTU=",
         "name": "apollo-client",
         "full_name": "vanpelt/apollo-client",
@@ -1095,7 +1095,7 @@ let test = """
         "default_branch": "master"
     },
     {
-        "id": 27188,
+        "id": 2,
         "node_id": "MDEwOlJlcG9zaXRvcnkyNzE4OA==",
         "name": "async-observer",
         "full_name": "vanpelt/async-observer",
@@ -1195,7 +1195,7 @@ let test = """
         "default_branch": "master"
     },
     {
-        "id": 77002473,
+        "id": 3,
         "node_id": "MDEwOlJlcG9zaXRvcnk3NzAwMjQ3Mw==",
         "name": "blueprint",
         "full_name": "vanpelt/blueprint",
@@ -1295,7 +1295,7 @@ let test = """
         "default_branch": "master"
     },
     {
-        "id": 4429051,
+        "id": 4,
         "node_id": "MDEwOlJlcG9zaXRvcnk0NDI5MDUx",
         "name": "CardMaven",
         "full_name": "vanpelt/CardMaven",
@@ -1389,7 +1389,7 @@ let test = """
         "default_branch": "master"
     },
     {
-        "id": 204591,
+        "id": 5,
         "node_id": "MDEwOlJlcG9zaXRvcnkyMDQ1OTE=",
         "name": "chris-snez",
         "full_name": "vanpelt/chris-snez",

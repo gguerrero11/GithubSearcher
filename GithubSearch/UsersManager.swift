@@ -11,24 +11,24 @@ import UIKit
 
 class UsersManager {
     var users = [User]()
-    var searchResults = [User]()
+    var userSearchResults = [User]()
+    var repoSearchResults = [Repo]()
     var userProfiles = [UserProfile]()
     var usersDownloadCallback: (()->Void)?
     var usersProfileDlCallback: (()->Void)?
-    var updatedSearchCallback: (()->Void)?
     let usersUrl = "https://api.github.com/users"
-    let isMockData = true
+    let isMockData = false
     
     init() {
         getUsers()
     }
     
-    func getUserProfile(forUser user: User, completion: @escaping ()->Void) {
+    func getUserProfile(forUser user: User, completion: @escaping (UserProfile)->Void) {
         guard !isMockData else {
             let profile = try! JSONDecoder().decode(UserProfile.self, from: mockProfile)
             if let index = self.users.firstIndex(of: user) {
                 self.users[index].userProfile = profile
-//                completion()
+                completion(profile)
             }
             return
         }
@@ -36,33 +36,33 @@ class UsersManager {
         guard user.userProfile == nil else { return }
         if let profURL = user.profURL, let url = URL(string: profURL) {
             URLSession.shared.dataTask(with: url) { data, response, error in
-                if let userProf: UserProfile = self.handleData(data: self.isMockData ? mockProfile : data) {
+                if let userProf: UserProfile = self.handleData(data: data) {
                     if let index = self.users.firstIndex(where: { $0.id == userProf.id }) {
                         self.users[index].userProfile = userProf
-                        completion()
+                        completion(userProf)
                     }
                 }
             }.resume()
         }
     }
     
-    func getRepos(forUser user: User, completion: @escaping ( ()->Void ) ) {
+    func getRepos(forUser user: User, completion: @escaping ( ([Repo])->Void ) ) {
         guard !isMockData else {
             let repos = try! JSONDecoder().decode([Repo].self, from: mockRepo)
             if let index = self.users.firstIndex(of: user) {
                 self.users[index].repos = repos
-                completion()
+                completion(repos)
             }
             return
         }
         
         if let reposURL = user.reposURL, let url = URL(string: reposURL) {
             URLSession.shared.dataTask(with: url) { data, response, error in
-                let xRepos: [Repo] = self.handleArrayData(data: (self.isMockData) ? mockRepo : data)
+                let xRepos: [Repo] = self.handleArrayData(data : data)
                 if let index = self.users.firstIndex(of: user) {
                     self.users[index].repos = xRepos
+                    completion(xRepos)
                 }
-                completion()
             }.resume()
         }
     }
@@ -171,12 +171,27 @@ class UsersManager {
 }
 
 extension UsersManager {
-    func handleSearch(word: String) {
-        if let url = URL(string: "searchURL here") {
+    func handleUserSearch(word: String, completion: @escaping (()->Void)) {
+        guard word != "" else { self.userSearchResults = self.users; return }
+        if let url = URL(string: "https://api.github.com/search/users?q=\(word)") {
             URLSession.shared.dataTask(with: url) { data, response, error in
-                self.searchResults = self.handleArrayData(data: data)
-                if let callback = self.updatedSearchCallback {
-                    callback()
+                if let searchResult: SearchResultUser = self.handleData(data: data),
+                    let items = searchResult.items {
+                    self.userSearchResults = items
+                    completion()
+                }
+            }.resume()
+        }
+    }
+    
+    func handleRepoSearch(word: String, forUser user: User, completion: @escaping (()->Void)) {
+        guard let username = user.username else { return }
+        if let url = URL(string: "https://api.github.com/search/users?q=\(username)+repos") {
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                if let searchResult: SearchResultRepo = self.handleData(data: data),
+                    let items = searchResult.items {
+                    self.repoSearchResults = items
+                    completion()
                 }
             }.resume()
         }
