@@ -92,7 +92,7 @@ class SearchTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dest = segue.destination as? DetailViewController {
             if let indexPath = sender as? IndexPath {
-                dest.user = manager.users[indexPath.row]
+                dest.user = self.userArray[indexPath.row]
                 dest.manager = manager
             }
         }
